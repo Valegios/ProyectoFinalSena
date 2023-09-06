@@ -9,7 +9,7 @@ use PhpParser\Node\Expr\FuncCall;
 class Producto extends Model
 {
     use HasFactory;
-    protected $fillable = ['nombre', 'precio', 'referencia', 'id_producto'];
+    protected $fillable = ['nombre', 'precio', 'referencia', 'id_proveedor'];
 
     public function venta()
     {

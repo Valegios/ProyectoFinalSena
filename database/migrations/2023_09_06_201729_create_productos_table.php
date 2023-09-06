@@ -13,6 +13,10 @@ return new class extends Migration
     {
         Schema::create('productos', function (Blueprint $table) {
             $table->id();
+            $table->string('nombre', 100);
+            $table->integer('precio');
+            $table->string('referencia');
+            $table->foreignId('id_proveedor')->constrained('proveedor'); //Relacion con la tabla proveedor
             $table->timestamps();
         });
     }

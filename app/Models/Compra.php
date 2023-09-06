@@ -12,6 +12,6 @@ class Compra extends Model
 
     public function producto()
     {
-        return $this->hasMany(producto::class);
+        return $this->hasMany(producto::class); //Una compra puede ser de muchos productos
     }
 }

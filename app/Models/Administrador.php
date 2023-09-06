@@ -12,6 +12,6 @@ class Administrador extends Model
 
     public function compra()
     {
-        return $this->hasMany(compra::class);
+        return $this->hasMany(compra::class); //Un administrador puede hacer muchas compras
     }
 }

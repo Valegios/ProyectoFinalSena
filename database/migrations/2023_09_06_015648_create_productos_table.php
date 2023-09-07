@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('nombre', 100);
             $table->integer('precio');
             $table->string('referencia');
-            $table->foreignId('id_proveedor')->constrained('proveedor'); //Relacion con la tabla proveedor
+            $table->foreignId('id_proveedor')->constrained('proveedors'); //Relacion con la tabla proveedor
             $table->timestamps();
         });
     }

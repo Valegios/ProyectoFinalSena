@@ -16,8 +16,8 @@ return new class extends Migration
             $table->date('fecha');
             $table->integer('precio');
             $table->integer('cantidad');
-            $table->foreignId('id_producto_2')->constrained('producto'); //Relacion con la tabla producto
-            $table->foreignId('id_vendedor')->constrained('vendedor'); //Relacion con la tabla vendedor
+            $table->foreignId('id_producto_2')->constrained('productos'); //Relacion con la tabla producto
+            $table->foreignId('id_vendedor')->constrained('vendedors'); //Relacion con la tabla vendedor
             $table->timestamps();
         });
     }

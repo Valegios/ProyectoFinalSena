@@ -1,64 +1,40 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!--<link rel="stylesheet" href="./estilos.css">-->
-    <title>COORPAPER</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>@yield(COORPAPER)</title>
+  @vite('resources/css/app.css')
 </head>
 <body>
-  <header> <!-- header es una sección para el encabezado de la página-->
-    <img src="./Logo - Papelería y más - Azul.png" alt="LogoPapeleríaymás">
-    <nav class="right-nav">
-      <ul>
-        <li><a href="#">Papelería y más</a></li>
-        <li><a href="#">Sobre CoorPaper</a></li>
-        <li><a href="#">Contacto</a></li>
-      </ul>
-    </nav>
-  </header>
-
-  <main> <!--En main se puede poner el contenido principal de la página-->
-    <section>
-      <div class="pestañasNav">
-
-        <div class="pestañas">
-          <input type="radio" name="pestañas" id="pestañas1" checked>
-          <label for="pestañas1">Administrador</label>
-            <div class="pestañasconte">
-              <ul>
-                <li><a href="#">Registro de producto</a></li>
-                <li><a href="#">Modificación de producto</a></li>
-                <li><a href="#">Inventario</a></li>
-                <li><a href="#">Registro de ventas</a></li>
-                <li><a href="#">Informe de ventas</a></li>
-                <li><a href="#">Registro de usuario</a></li>
-                <li><a href="#">Modificación de usuario</a></li>
-                <li><a href="#">Información de proveedores</a></li>
-                </ul>
-            </div>
+ <header>
+    {{-- navbar --}}
+    @include('partials.navigation')
+ </header>
+ <main>
+    {{-- Título Cabecera --}}
+    <div class="bg-green-100 my-4 text-center">
+      <h1 class="text-lg font-semibold m-4 uppercase">@yield('cabecera')</h1>
+    </div>
+    {{-- Mensajes informativos --}}
+    @if (session('info'))
+      <div class="flex justify-end m-4">
+        <div class="alert alert-info w-96">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="stroke-current shrink-0 w-6 
+          h-6"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 
+          11-18 0 9 9 0 0118 0z"></path></svg>
+          <span>{{session('info')}}</span>
         </div>
-
-        <div class="pestañas">
-          <input type="radio" name="pestañas" id="pestañas2">
-          <label for="pestañas2">Ventas</label>
-            <div class="pestañasconte">
-              <ul>
-                <li><a href="#">Registro de ventas</a></li>
-                <li><a href="#">Inventario</a></li>
-                <li><a href="#">Informe de ventas</a></li>
-              </ul>                   
-            </div>
-        </div>
-
       </div>
-    </section>
-  </main>
-
-    <footer>
-      <p>COORPAPER, 2023</p>
-    </footer>
-
+      @endif
+        {{-- Contenido --}}
+       @yield('contenido')
+ </main>
+ <footer class="footer footer-center p-4 bg-base-300 text-base-content mt-12">
+    <div>
+      <p>Copyright © 2023 - MiniMercado</p>
+    </div>
+ </footer>
 </body>
 </html>

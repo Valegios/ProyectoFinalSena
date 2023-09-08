@@ -20,7 +20,7 @@ class VendedorController extends Controller
      */
     public function create()
     {
-        //
+        return view('vendedors.create');
     }
 
     /**

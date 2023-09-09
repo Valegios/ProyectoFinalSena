@@ -23,7 +23,7 @@ class AdministradorController extends Controller
     public function create()
     {
         //Carga la vista de la categoria que se maneja
-        return view('administradors.create');
+        return view('categorias.administrador.create');
     }
 
     /**

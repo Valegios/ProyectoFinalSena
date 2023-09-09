@@ -6,7 +6,7 @@
 <div class="flex justify-center">
     <div class="card w-96 shadow-2xl bg-base-100">
         <div class="card-body">
-            <form action="{{ route('administradores.store') }}" method="POST">
+            <form action="{{ route('administradors.store') }}" method="POST">
                 @csrf
                 <div class="form-control">
                     <label class="label" for="nombre">
@@ -45,7 +45,7 @@
                 </div>
                 <div class="form-control mt-6">
                     <button class="btn btn-primary">Crear Administrador</button>
-                    <a href="{{ route('administradores.index') }}"
+                    <a href="{{ route('administradors.index') }}"
                         class="btn btn-outline btn-primary mt-4">Cancelar</a>
                 </div>
             </form>

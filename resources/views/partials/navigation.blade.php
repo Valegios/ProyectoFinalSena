@@ -22,6 +22,7 @@
                 <a>Vendedor</a>
                 <ul class="menu">
                     <li><a href="{{ route('productos.index') }}" class="menu-item">Productos</a></li>
+                    <li><a href="{{ route('ventas.index') }}" class="menu-item">Registrar Venta</a></li>
                     <li><a href="{{ route('proveedors.index') }}" class="menu-item">Proveedores</a></li>
                     <li><a href="{{ route('ventas.index') }}" class="menu-item">Ventas</a></li>
                 </ul>

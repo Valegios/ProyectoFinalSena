@@ -12,7 +12,9 @@ class ProveedorController extends Controller
      */
     public function index()
     {
-        //
+        $proveedores = Proveedor::all(); // Se consultan todos los proveedores
+        return view('categorias.proveedor.index', ['proveedores' => $proveedores]);
+
     }
 
     /**

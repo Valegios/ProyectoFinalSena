@@ -12,7 +12,9 @@ class VentaController extends Controller
      */
     public function index()
     {
-        //
+        $ventas = Venta::all(); // Se consultan todas las ventas
+        return view('categorias.ventas.index', ['ventas' => $ventas]);
+
     }
 
     /**
@@ -20,7 +22,7 @@ class VentaController extends Controller
      */
     public function create()
     {
-        return view('ventas.create');
+        return view('categorias.ventas.create');
     }
 
     /**
@@ -28,7 +30,11 @@ class VentaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+         //Crear un nuevo registro de ventas con los datos del formulario
+         Venta::create($request->all());
+         //Redireccionar a la vista de ventas y mostrar un mensaje de éxito
+         return redirect()->route('categorias.ventas.index')->with('info', 'Venta creado con exito');
+         //Cambio entre el metodo redirect() y to_route(), esta linea de codigo  no es una función estándar de Laravel. Puede ser específica de un paquete o una implementación personalizada en tu proyecto.        
     }
 
     /**

@@ -37,6 +37,8 @@ Route::get('/agregar-producto', [ProductoController::class, 'create'])->name('ag
 
 Route::post('/administradors/store-producto', [AdministradorController::class, 'storeProducto'])->name('administradors.store-producto');
 Route::post('/administradors/store-vendedor', [AdministradorController::class, 'storeVendedor'])->name('administradors.store-vendedor');
+Route::post('/ventas', [VentaController::class, 'store'])->name('ventas.store');
+
 
 //Ruta para la vista de una lista de todos los productos que se tienen en la base de datos
 Route::get('/productos', [ProductoController::class, 'index'])->name('productos.index');

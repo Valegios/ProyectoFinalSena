@@ -12,7 +12,8 @@ class ProductoController extends Controller
      */
     public function index()
     {
-        //
+        $productos = Producto::all(); // Se consultan todos los productos
+        return view('categorias.productos.index', ['productos' => $productos]);
     }
 
     /**
@@ -20,7 +21,7 @@ class ProductoController extends Controller
      */
     public function create()
     {
-        return view('productos.create');
+        return view('categorias.productos.create');
     }
 
     /**

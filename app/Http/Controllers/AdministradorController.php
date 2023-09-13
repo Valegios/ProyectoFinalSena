@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Administrador;
 use App\Models\Producto;
 use App\Models\Vendedor;
+use App\Models\Proveedor;
 use Illuminate\Http\Request;
 
 class AdministradorController extends Controller
@@ -14,7 +15,8 @@ class AdministradorController extends Controller
      */
     public function index()
     {
-        //
+        $productos = Producto::all(); // Se consultan todos los productos
+        return view('categorias.productos.index', ['productos' => $productos]);
     }
 
     /**
@@ -22,7 +24,7 @@ class AdministradorController extends Controller
      */
     public function create()
     {
-        //Carga la vista de la categoria que se maneja
+        //Carga la vista de creacion de un nuevo administrador
         return view('categorias.administrador.create');
     }
 
@@ -40,10 +42,19 @@ class AdministradorController extends Controller
 
     public function storeProducto(Request $request)
     {
-        //Crear un nuevo producto con los datos del formulario
+        // Valida los datos antes de guardarlos
+        $request->validate([
+            'nombre' => 'required',
+            'precio' => 'required',
+            'referencia' => 'required',
+            'id_proveedor' => 'required'
+    ]);
+
+        // Guarda el nuevo producto en la base de datos
         Producto::create($request->all());
-        return redirect()->route('productos.index')->with('info', 'Producto creado con éxito');
+        return redirect()->route('categorias.productos.index')->with('info', 'Producto creado con éxito');
     }
+
 
     public function storeVendedor(Request $request)
     {
@@ -51,6 +62,22 @@ class AdministradorController extends Controller
         return redirect()->route('vendedors.index')->with('info', 'Vendedor creado con éxito');
     }
 
+    public function storeProveedor(Request $request)
+    {
+        // Validación de datos
+        $request->validate([
+            'nombre' => 'required',
+            'direccion' => 'required',
+            'telefono' => 'required',
+            'email' => 'required',
+    ]);
+
+        // Crear un nuevo proveedor en la base de datos
+        Proveedor::create($request->all());
+
+        // Redireccionar a la página de lista de proveedores con un mensaje
+        return redirect()->route('categorias.proveedor.index')->with('info', 'Proveedor creado con éxito');
+    }
 
 
     /**
@@ -64,18 +91,28 @@ class AdministradorController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Administrador $administrador)
+    public function editProducto(Producto $producto)
     {
-        //
+        //Modifica los datos de un producto ya ingresado
+        return view('categorias.productos.edit', ['producto' => $producto]);
     }
+
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Administrador $administrador)
+    public function updateProducto(Request $request, $id)
     {
-        //
+        // Encuentra el producto por su ID
+        $producto = Producto::find($id);
+
+        // Actualiza el producto con los nuevos datos
+        $producto->update($request->all());
+
+        // Redirige al índice de productos con un mensaje
+        return redirect()->route('categorias.productos.index')->with('info', 'Producto actualizado con éxito');
     }
+
 
     /**
      * Remove the specified resource from storage.

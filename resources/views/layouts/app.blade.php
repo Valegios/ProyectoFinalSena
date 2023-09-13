@@ -33,7 +33,7 @@
  </main>
  <footer class="footer footer-center p-4 bg-base-300 text-base-content mt-12">
     <div>
-      <p>Copyright © 2023 - MiniMercado</p>
+      <p>Copyright © 2023 - CoorPaper</p>
     </div>
  </footer>
 </body>

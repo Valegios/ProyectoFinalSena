@@ -22,7 +22,7 @@ class ProveedorController extends Controller
      */
     public function create()
     {
-        return view('proveedors.create');
+        return view('categorias.proveedor.create');
     }
 
     /**

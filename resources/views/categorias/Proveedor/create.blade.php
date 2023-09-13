@@ -1,18 +1,18 @@
 @extends('layouts.app')
-@section('titulo', 'Crear Producto')
-@section('cabecera', 'Crear Producto')
+@section('titulo', 'Crear Proveedor')
+@section('cabecera', 'Crear Proveedor')
 @section('contenido')
 
 <div class="flex justify-center">
     <div class="card w-96 shadow-2xl bg-base-100">
         <div class="card-body">
-            <form action="{{ route('administrador.storeProducto') }}" method="POST">
+            <form action="{{ route('administrador.storeProveedor') }}" method="POST">
                 @csrf
                 <div class="form-control">
-                    <label class="label" for="id_producto">
-                        <span class="label-text">ID del Producto</span>
+                    <label class="label" for="id_proveedor">
+                        <span class="label-text">ID del Proveedor</span>
                     </label>
-                    <input type="text" name="id_producto" placeholder="ID del Producto" maxlength="100"
+                    <input type="text" name="id_proveedor" placeholder="ID del Proveedor" maxlength="100"
                         class="input input-bordered" required />
                 </div>
                 <div class="form-control">
@@ -23,29 +23,29 @@
                         class="input input-bordered" required />
                 </div>
                 <div class="form-control">
-                    <label class="label" for="precio">
-                        <span class="label-text">Precio</span>
+                    <label class="label" for="direccion">
+                        <span class="label-text">Dirección</span>
                     </label>
-                    <input type="number" name="precio" placeholder="Precio"
+                    <input type="text" name="direccion" placeholder="Dirección" maxlength="255"
                         class="input input-bordered" required />
                 </div>
                 <div class="form-control">
-                    <label class="label" for="referencia">
-                        <span class="label-text">Referencia</span>
+                    <label class="label" for="telefono">
+                        <span class="label-text">Teléfono</span>
                     </label>
-                    <input type="text" name="referencia" placeholder="Referencia" maxlength="255"
+                    <input type="tel" name="telefono" placeholder="Teléfono" maxlength="15"
                         class="input input-bordered" required />
                 </div>
                 <div class="form-control">
-                    <label class="label" for="id_proveedor">
-                        <span class="label-text">ID del Proveedor</span>
+                    <label class="label" for="email">
+                        <span class="label-text">Email</span>
                     </label>
-                    <input type="number" name="id_proveedor" placeholder="ID del Proveedor" min="1"
+                    <input type="email" name="email" placeholder="Email" maxlength="100"
                         class="input input-bordered" required />
                 </div>
                 <div class="form-control mt-6">
-                    <button class="btn btn-primary">Crear Producto</button>
-                    <a href="{{ route('productos.index') }}"
+                    <button class="btn btn-primary">Crear Proveedor</button>
+                    <a href="{{ route('proveedors.index') }}"
                         class="btn btn-outline btn-primary mt-4">Cancelar</a>
                 </div>
             </form>

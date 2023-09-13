@@ -12,7 +12,7 @@ class Proveedor extends Model
 
     public function producto()
     {
-        return $this->hasMany(producto::class); // Un proveedor puede tener muchos productos
+        return $this->hasMany(Producto::class); // Un proveedor puede tener muchos productos
     }
 
 }

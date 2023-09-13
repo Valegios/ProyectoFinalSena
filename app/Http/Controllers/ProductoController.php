@@ -29,7 +29,8 @@ class ProductoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //Producto::create($request->all());
+        //return redirect()->route('productos.index')->with('info', 'Producto creado con éxito');
     }
 
     /**

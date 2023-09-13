@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
-@section('titulo', 'Listar Proveedores')
-@section('cabecera', 'Listar Proveedores')
+@section('titulo', 'Lista de Proveedores')
+@section('cabecera', 'Lista de Proveedores')
 
 @section('contenido')
     <div class="flex justify-end m-4">
@@ -22,14 +22,14 @@
                 <tbody>
                     @foreach ($proveedores as $proveedor)
                         <tr>
-                            <td>{{ $proveedor->id_proveedor }}</td>
+                            <td>{{ $proveedor->id }}</td>
                             <td>{{ $proveedor->nombre }}</td>
                             <td>{{ $proveedor->direccion }}</td>
                             <td>{{ $proveedor->telefono }}</td>
                             <td>{{ $proveedor->email }}</td>
                             <td class="flex space-x-2">
-                                <a href="{{ route('proveedors.edit', $proveedor->id_proveedor) }}" class="btn btn-warning btn-xs">Editar</a>
-                                <form action="{{ route('proveedors.destroy', $proveedor->id_proveedor) }}" method="POST">
+                                <a href="{{ route('proveedors.edit', $proveedor->id) }}" class="btn btn-warning btn-xs">Editar</a>
+                                <form action="{{ route('proveedors.destroy', $proveedor->id) }}" method="POST">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" onclick="return confirm('¿Desea eliminar el proveedor {{ $proveedor->nombre }}?')" class="btn btn-error btn-xs">Eliminar</button>

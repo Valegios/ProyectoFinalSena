@@ -34,11 +34,25 @@ Route::get('/crear-administrador', [AdministradorController::class, 'create'])->
 Route::get('/crear-vendedor', [VendedorController::class, 'create'])->name('crear-vendedor');
 //Ruta para la vista de creación de productos
 Route::get('/agregar-producto', [ProductoController::class, 'create'])->name('agregar-producto');
+Route::get('/categorias/productos', [AdministradorController::class, 'index'])->name('categorias.productos.index');
+Route::get('/categorias/proveedor', [AdministradorController::class, 'index'])->name('categorias.proveedor.index');
 
-Route::post('/administradors/store-producto', [AdministradorController::class, 'storeProducto'])->name('administradors.store-producto');
-Route::post('/administradors/store-vendedor', [AdministradorController::class, 'storeVendedor'])->name('administradors.store-vendedor');
+
+Route::post('/administrador/storeProducto', [AdministradorController::class, 'storeProducto'])->name('administrador.storeProducto');
+Route::post('/administrador/storeVendedor', [AdministradorController::class, 'storeVendedor'])->name('administrador.storeVendedor');
 Route::post('/ventas', [VentaController::class, 'store'])->name('ventas.store');
+Route::post('/administrador/storeProveedor', [AdministradorController::class, 'storeProveedor'])->name('administrador.storeProveedor');
+
+//Ruta para la creacion de nuevos productos
+//Route::post('/store-Producto', [AdministradorController::class, 'storeProducto'])->name('productos.store');
 
 
 //Ruta para la vista de una lista de todos los productos que se tienen en la base de datos
 Route::get('/productos', [ProductoController::class, 'index'])->name('productos.index');
+
+//Ruta para la modificacion de productos por parte del administrador
+Route::get('/productos/{producto}/edit', [AdministradorController::class, 'editProducto'])->name('productos.edit');
+
+Route::put('/productos/{id}', [AdministradorController::class, 'updateProducto'])->name('administrador.updateProducto');
+
+

@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
-@section('titulo', 'Listar Ventas')
-@section('cabecera', 'Listar Ventas')
+@section('titulo', 'Lista de Ventas')
+@section('cabecera', 'Lista de Ventas')
 
 @section('contenido')
     <div class="flex justify-end m-4">

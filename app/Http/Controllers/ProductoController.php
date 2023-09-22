@@ -12,7 +12,7 @@ class ProductoController extends Controller
      */
     public function index()
     {
-        $productos = Producto::all(); // Se consultan todos los productos
+        $productos = Producto::orderBy('nombre')->get(); // Se consultan todos los productos
         return view('categorias.productos.index', ['productos' => $productos]);
     }
 
@@ -29,8 +29,7 @@ class ProductoController extends Controller
      */
     public function store(Request $request)
     {
-        //Producto::create($request->all());
-        //return redirect()->route('productos.index')->with('info', 'Producto creado con éxito');
+        //
     }
 
     /**

@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Administrador;
-use App\Models\Producto;
-use App\Models\Vendedor;
-use App\Models\Proveedor;
-use Illuminate\Http\Request;
+use App\Models\Administrador; //Se importa el modelo administrador
+use App\Models\Producto; //Se importa el modelo producto
+use App\Models\Vendedor; //Se importa el modelo vendedor
+use App\Models\Proveedor; //Se importa el modelo proveedor
+use Illuminate\Http\Request; //Se importa la clase Request
 
 class AdministradorController extends Controller
 {
@@ -15,8 +15,7 @@ class AdministradorController extends Controller
      */
     public function index()
     {
-        $productos = Producto::all(); // Se consultan todos los productos
-        return view('categorias.productos.index', ['productos' => $productos]);
+        //
     }
 
     /**
@@ -47,7 +46,8 @@ class AdministradorController extends Controller
             'nombre' => 'required',
             'precio' => 'required',
             'referencia' => 'required',
-            'id_proveedor' => 'required'
+            'stock' => 'required',
+            'id_proveedor' => 'required',
     ]);
 
         // Guarda el nuevo producto en la base de datos
@@ -58,8 +58,19 @@ class AdministradorController extends Controller
 
     public function storeVendedor(Request $request)
     {
+        // Valida los datos antes de guardarlos
+        $request->validate([
+            'nombre' => 'required',
+            'apellido' => 'required',
+            'email' => 'required|email',
+            'contraseña' => 'required|min:8',
+        ]);
+    
+        // Guarda el nuevo vendedor en la base de datos
         Vendedor::create($request->all());
-        return redirect()->route('vendedors.index')->with('info', 'Vendedor creado con éxito');
+    
+        // Redireccionar a la página de lista de vendedores con un mensaje
+        return redirect()->route('categorias.vendedor.index')->with('info', 'Vendedor creado con éxito');
     }
 
     public function storeProveedor(Request $request)
@@ -97,21 +108,57 @@ class AdministradorController extends Controller
         return view('categorias.productos.edit', ['producto' => $producto]);
     }
 
+    public function editProveedor($id)
+    {
+        $proveedor = Proveedor::find($id);
+        return view('categorias.proveedor.edit', ['proveedor' => $proveedor]);
+    }
+
+
 
     /**
      * Update the specified resource in storage.
      */
     public function updateProducto(Request $request, $id)
     {
-        // Encuentra el producto por su ID
-        $producto = Producto::find($id);
+        // Valida los datos antes de actualizarlos
+        $request->validate([
+            'nombre' => 'required',
+            'precio' => 'required',
+            'referencia' => 'required',
+            'stock' => 'required',
+            'id_proveedor' => 'required',
+        ]);
 
-        // Actualiza el producto con los nuevos datos
+        // Busca el producto por ID y actualiza sus datos
+        $producto = Producto::find($id);
         $producto->update($request->all());
 
-        // Redirige al índice de productos con un mensaje
         return redirect()->route('categorias.productos.index')->with('info', 'Producto actualizado con éxito');
     }
+
+    public function updateProveedor(Request $request, $id)
+    {
+        // Validar los datos
+        $request->validate([
+            'nombre' => 'required|string|max:100',
+            'direccion' => 'required|string|max:200',
+            'telefono' => 'required|string|max:15',
+            'email' => 'required|email|max:100',
+    ]);
+
+        // Actualizar el proveedor
+        $proveedor = Proveedor::find($id);
+        $proveedor->update([
+            'nombre' => $request->nombre,
+            'direccion' => $request->direccion,
+            'telefono' => $request->telefono,
+            'email' => $request->email,
+    ]);
+
+        return redirect()->route('categorias.proveedor.index')->with('info', 'Proveedor actualizado con éxito');
+    }
+
 
 
     /**

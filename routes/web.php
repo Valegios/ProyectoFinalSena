@@ -30,11 +30,11 @@ Route::resource('/ventas', VentaController::class);
 
 //Ruta para la vista de creación de administradores
 Route::get('/crear-administrador', [AdministradorController::class, 'create'])->name('crear-administrador');
-//Ruta para la vista de creación de vendedores
-Route::get('/crear-vendedor', [VendedorController::class, 'create'])->name('crear-vendedor');
+
+
 //Ruta para la vista de creación de productos
 Route::get('/agregar-producto', [ProductoController::class, 'create'])->name('agregar-producto');
-Route::get('/categorias/productos', [AdministradorController::class, 'index'])->name('categorias.productos.index');
+
 Route::get('/categorias/proveedor', [AdministradorController::class, 'index'])->name('categorias.proveedor.index');
 
 
@@ -52,7 +52,26 @@ Route::get('/productos', [ProductoController::class, 'index'])->name('productos.
 
 //Ruta para la modificacion de productos por parte del administrador
 Route::get('/productos/{producto}/edit', [AdministradorController::class, 'editProducto'])->name('productos.edit');
+Route::get('/proveedor/{id}/edit', [AdministradorController::class, 'editProveedor'])->name('administrador.editProveedor');
 
 Route::put('/productos/{id}', [AdministradorController::class, 'updateProducto'])->name('administrador.updateProducto');
 
 
+//Rutas para mostrar las listas
+Route::get('/categorias/productos', [ProductoController::class, 'index'])->name('categorias.productos.index');
+Route::get('/vendedor', 'VendedorController@index')->name('vendedor.index');
+
+//Ruta para mostrar los formularios de creacion
+Route::get('/crear-vendedor', 'VendedorController@create')->name('crear-vendedor');
+
+//Ruta para almacenar nuevos datos
+Route::post('/administrador/storeVendedor', 'AdministradorController@storeVendedor')->name('administrador.storeVendedor');
+
+//Ruta para mostrar los formularios de edicion
+
+//Ruta para actualizar informacion en la base de datos
+Route::put('/productos/{id}/update', [AdministradorController::class, 'updateProducto'])->name('administrador.updateProducto');
+Route::put('/proveedor/{id}/update', [AdministradorController::class, 'updateProveedor'])->name('administrador.updateProveedor');
+
+
+//Ruta para eliminar informacion en la base de datos

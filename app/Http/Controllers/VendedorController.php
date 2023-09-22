@@ -12,7 +12,8 @@ class VendedorController extends Controller
      */
     public function index()
     {
-        //
+        $vendedores = Vendedor::all(); // Se consultan todos los vendedores
+        return view('categorias.vendedor.index', ['vendedores' => $vendedores]);
     }
 
     /**

@@ -43,9 +43,15 @@
                     <input type="number" name="id_proveedor" placeholder="ID del Proveedor" min="1"
                         class="input input-bordered" required />
                 </div>
+                <div class="form-control">
+                    <label class="label" for="stock">
+                        <span class="label-text">Stock</span>
+                    </label>
+                    <input type="number" name="stock" placeholder="Existencias" class="input input-bordered" value="{{old('stock')}}" required />
+                </div>
                 <div class="form-control mt-6">
                     <button class="btn btn-primary">Crear Producto</button>
-                    <a href="{{ route('productos.index') }}"
+                    <a href="{{ route('categorias.productos.index') }}"
                         class="btn btn-outline btn-primary mt-4">Cancelar</a>
                 </div>
             </form>

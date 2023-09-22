@@ -44,10 +44,16 @@
                     </label>
                     <input type="number" name="id_proveedor" placeholder="ID del proveedor" class="input input-bordered" value="{{$producto->id_proveedor}}" required />
                 </div>
+                <div class="form-control">
+                    <label class="label" for="stock">
+                        <span class="label-text">Stock</span>
+                    </label>
+                    <input type="number" name="stock" placeholder="Stock del producto" class="input input-bordered" value="{{$producto->stock}}" required />
+                </div>
 
                 <div class="form-control mt-6">
                     <button class="btn btn-primary">Actualizar Producto</button>
-                    <a href="{{ route('productos.index') }}" class="btn btn-outline btn-primary mt-4">Cancelar</a>
+                    <a href="{{ route('categorias.productos.index') }}" class="btn btn-outline btn-primary mt-4">Cancelar</a>
                 </div>
             </form>
         </div>

@@ -29,13 +29,13 @@ Route::resource('/vendedors', VendedorController::class);
 Route::resource('/ventas', VentaController::class);
 
 //Ruta para la vista de creación de administradores
-Route::get('/crear-administrador', [AdministradorController::class, 'create'])->name('crear-administrador');
+//Route::get('/crear-administrador', [AdministradorController::class, 'create'])->name('crear-administrador');
 
 
 //Ruta para la vista de creación de productos
 Route::get('/agregar-producto', [ProductoController::class, 'create'])->name('agregar-producto');
 
-Route::get('/categorias/proveedor', [AdministradorController::class, 'index'])->name('categorias.proveedor.index');
+Route::get('/categorias/proveedor', [ProveedorController::class, 'index'])->name('categorias.proveedor.index');
 
 
 Route::post('/administrador/storeProducto', [AdministradorController::class, 'storeProducto'])->name('administrador.storeProducto');
@@ -49,25 +49,33 @@ Route::post('/administrador/storeProveedor', [AdministradorController::class, 's
 
 //Ruta para la vista de una lista de todos los productos que se tienen en la base de datos
 Route::get('/productos', [ProductoController::class, 'index'])->name('productos.index');
+Route::get('/categorias/administrador', [AdministradorController::class, 'index'])->name('categorias.administrador.index');
 
-//Ruta para la modificacion de productos por parte del administrador
-Route::get('/productos/{producto}/edit', [AdministradorController::class, 'editProducto'])->name('productos.edit');
-Route::get('/proveedor/{id}/edit', [AdministradorController::class, 'editProveedor'])->name('administrador.editProveedor');
+
 
 Route::put('/productos/{id}', [AdministradorController::class, 'updateProducto'])->name('administrador.updateProducto');
 
 
-//Rutas para mostrar las listas
+//Rutas para mostrar las listas con los datos
+Route::get('/administradores', [AdministradorController::class, 'index'])->name('administrador.index');
+Route::get('/productos', [ProductoController::class, 'index'])->name('productos.index');
 Route::get('/categorias/productos', [ProductoController::class, 'index'])->name('categorias.productos.index');
 Route::get('/vendedor', 'VendedorController@index')->name('vendedor.index');
 
 //Ruta para mostrar los formularios de creacion
 Route::get('/crear-vendedor', 'VendedorController@create')->name('crear-vendedor');
+Route::get('/proveedor/create', [ProveedorController::class, 'create'])->name('proveedor.create');
+Route::get('/administrador/create', [AdministradorController::class, 'create'])->name('administrador.create');
 
 //Ruta para almacenar nuevos datos
 Route::post('/administrador/storeVendedor', 'AdministradorController@storeVendedor')->name('administrador.storeVendedor');
+Route::post('/administrador', [AdministradorController::class, 'storeAdministrador'])->name('administrador.store');
+
 
 //Ruta para mostrar los formularios de edicion
+Route::get('/administradores/{id}/edit', [AdministradorController::class, 'edit'])->name('administradores.edit'); //pendiente de edit en administrador controller
+Route::get('/productos/{producto}/edit', [AdministradorController::class, 'editProducto'])->name('productos.edit');
+Route::get('/proveedor/{id}/edit', [AdministradorController::class, 'editProveedor'])->name('administrador.editProveedor');
 
 //Ruta para actualizar informacion en la base de datos
 Route::put('/productos/{id}/update', [AdministradorController::class, 'updateProducto'])->name('administrador.updateProducto');
@@ -75,3 +83,6 @@ Route::put('/proveedor/{id}/update', [AdministradorController::class, 'updatePro
 
 
 //Ruta para eliminar informacion en la base de datos
+Route::delete('/administradores/{id}', [AdministradorController::class, 'destroy'])->name('administradores.destroy'); //pendiente de destroy en administrador controller
+Route::delete('/productos/{id}/destroy', [AdministradorController::class, 'destroyProducto'])->name('administrador.destroyProducto');
+Route::delete('/proveedor/{id}/destroy', [AdministradorController::class, 'destroyProveedor'])->name('administrador.destroyProveedor');

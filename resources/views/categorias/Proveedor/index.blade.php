@@ -5,7 +5,7 @@
 
 @section('contenido')
     <div class="flex justify-end m-4">
-        <a href="{{ route('proveedors.create') }}" class="btn btn-outline btn-sm">Crear Proveedor</a>
+        <a href="{{ route('proveedor.create') }}" class="btn btn-outline btn-sm">Crear Proveedor</a>
     </div>
     <div class="flex justify-center">
         <div class="overflow-x-auto">
@@ -28,8 +28,8 @@
                             <td>{{ $proveedor->telefono }}</td>
                             <td>{{ $proveedor->email }}</td>
                             <td class="flex space-x-2">
-                                <a href="{{ route('proveedors.edit', $proveedor->id) }}" class="btn btn-warning btn-xs">Editar</a>
-                                <form action="{{ route('proveedors.destroy', $proveedor->id) }}" method="POST">
+                                <a href="{{ route('administrador.editProveedor', $proveedor->id) }}" class="btn btn-warning btn-xs">Editar</a>
+                                <form action="{{ route('administrador.destroyProveedor', $proveedor->id) }}" method="POST">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" onclick="return confirm('¿Desea eliminar el proveedor {{ $proveedor->nombre }}?')" class="btn btn-error btn-xs">Eliminar</button>

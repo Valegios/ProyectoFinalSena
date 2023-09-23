@@ -15,7 +15,10 @@ class AdministradorController extends Controller
      */
     public function index()
     {
-        //
+        // Obtener todos los administradores de la base de datos
+        $administradores = Administrador::all();
+        // Pasar los datos a la vista
+        return view('categorias.administrador.index', ['administradores' => $administradores]);
     }
 
     /**
@@ -32,11 +35,26 @@ class AdministradorController extends Controller
      */
     public function storeAdministrador(Request $request)
     {
-        //Crear un nuevo administrador con los datos del formulario
-        Administrador::create($request->all());
-        //Redireccionar a la vista de administradores y mostrar un mensaje de éxito
-        return redirect()->route('administradors.index')->with('info', 'Administrador creado con exito');
-        //Cambio entre el metodo redirect() y to_route(), esta linea de codigo  no es una función estándar de Laravel. Puede ser específica de un paquete o una implementación personalizada en tu proyecto.        
+        // Validación de los datos
+        $request->validate([
+            'nombre' => 'required|string|max:100',
+            'apellido' => 'required|string|max:100',
+            'email' => 'required|email|max:100',
+            'celular' => 'required|string|max:15',
+            'contraseña' => 'required|string|min:8',
+        ]);
+
+        // Crear el nuevo administrador
+        Administrador::create([
+            'nombre' => $request->nombre,
+            'apellido' => $request->apellido,
+            'email' => $request->email,
+            'celular' => $request->celular,
+            'contraseña' => bcrypt($request->contraseña),  // Encriptar la contraseña
+        ]);
+
+        // Redirigir con un mensaje de éxito
+        return redirect()->route('categorias.administrador.index')->with('info', 'Administrador creado con éxito');
     }
 
     public function storeProducto(Request $request)
@@ -111,8 +129,12 @@ class AdministradorController extends Controller
     public function editProveedor($id)
     {
         $proveedor = Proveedor::find($id);
+        if (!$proveedor) {
+            return redirect()->route('categorias.proveedor.index')->with('error', 'Proveedor no encontrado');
+        }
         return view('categorias.proveedor.edit', ['proveedor' => $proveedor]);
     }
+
 
 
 
@@ -164,8 +186,34 @@ class AdministradorController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Administrador $administrador)
+    public function destroyProducto($id)
     {
-        //
+        $producto = Producto::find($id);
+        if (!$producto) {
+            return redirect()->route('categorias.productos.index')->with('error', 'Producto no encontrado');
+        }
+        $producto->delete();
+        return redirect()->route('categorias.productos.index')->with('info', 'Producto eliminado con éxito');
     }
+
+    public function destroyProveedor($id)
+    {
+        $proveedor = Proveedor::find($id);
+
+        if ($proveedor) {
+            // Verificar si el proveedor tiene productos asociados
+            if ($proveedor->productos->count() > 0) {
+            return redirect()->route('categorias.proveedor.index')->with('info', 'No se puede eliminar este proveedor porque tiene productos asociados.');
+            }
+
+            $proveedor->delete();
+            return redirect()->route('categorias.proveedor.index')->with('info', 'Proveedor eliminado con éxito');
+        } else {
+            return redirect()->route('categorias.proveedor.index')->with('error', 'Proveedor no encontrado');
+        }
+    }
+
+
+
+
 }

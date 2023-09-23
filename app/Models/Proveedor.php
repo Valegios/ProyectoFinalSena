@@ -10,9 +10,9 @@ class Proveedor extends Model
     use HasFactory;
     protected $fillable = ['nombre', 'direccion', 'telefono', 'email'];
 
-    public function producto()
+    public function productos()
     {
-        return $this->hasMany(Producto::class); // Un proveedor puede tener muchos productos
+        return $this->hasMany(Producto::class, 'id_proveedor'); // Un proveedor puede tener muchos productos
     }
 
 }

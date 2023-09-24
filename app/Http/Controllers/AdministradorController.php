@@ -50,7 +50,7 @@ class AdministradorController extends Controller
             'apellido' => $request->apellido,
             'email' => $request->email,
             'celular' => $request->celular,
-            'contraseña' => bcrypt($request->contraseña),  // Encriptar la contraseña
+            'contraseña' => bcrypt($request->contraseña),  // Se utiliza bcrypt para encriptar la contraseña
         ]);
 
         // Redirigir con un mensaje de éxito
@@ -84,8 +84,13 @@ class AdministradorController extends Controller
             'contraseña' => 'required|min:8',
         ]);
     
-        // Guarda el nuevo vendedor en la base de datos
-        Vendedor::create($request->all());
+        // Crear el vendedor
+        Vendedor::create([
+            'nombre' => $request->nombre,
+            'apellido' => $request->apellido,
+            'email' => $request->email,
+            'contraseña' => bcrypt($request->contraseña), // Se utiliza bcrypt para encriptar la contraseña
+        ]);
     
         // Redireccionar a la página de lista de vendedores con un mensaje
         return redirect()->route('categorias.vendedor.index')->with('info', 'Vendedor creado con éxito');
@@ -120,10 +125,32 @@ class AdministradorController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
+    public function editAdministrador($id)
+    {
+        $administrador = Administrador::find($id);
+        if (!$administrador) {
+            return redirect()->route('categorias.administrador.index')->with('error', 'Administrador no encontrado');
+        }
+        return view('categorias.administrador.edit', ['administrador' => $administrador]);
+    }
+
     public function editProducto(Producto $producto)
     {
         //Modifica los datos de un producto ya ingresado
         return view('categorias.productos.edit', ['producto' => $producto]);
+    }
+
+    public function editVendedor($id)
+    {
+        // Buscar el vendedor en la base de datos usando el ID
+        $vendedor = Vendedor::find($id);
+        // Si el vendedor no se encuentra, redirigir con un mensaje de error
+        if (!$vendedor) {
+            return redirect()->route('vendedor.index')->with('error', 'Vendedor no encontrado');
+        }
+
+        // Pasar los datos del vendedor a la vista de edición
+        return view('categorias.vendedor.edit', ['vendedor' => $vendedor]);
     }
 
     public function editProveedor($id)
@@ -135,12 +162,37 @@ class AdministradorController extends Controller
         return view('categorias.proveedor.edit', ['proveedor' => $proveedor]);
     }
 
-
-
-
     /**
      * Update the specified resource in storage.
      */
+
+    public function updateAdministrador(Request $request, $id)
+    {
+        // Validar los datos
+        $request->validate([
+            'nombre' => 'required|string|max:100',
+            'apellido' => 'required|string|max:100',
+            'email' => 'required|email|max:100',
+            'celular' => 'required|string|max:20',
+            'contraseña' => 'required|string|max:20',
+        ]);
+     
+        // Buscar el administrador por ID
+        $administrador = Administrador::find($id);
+     
+        // Actualizar el administrador
+        $administrador->update([
+            'nombre' => $request->nombre,
+            'apellido' => $request->apellido,
+            'email' => $request->email,
+            'celular' => $request->celular,
+            'contraseña' => bcrypt($request->contraseña), // Se utiliza bcrypt para encriptar la contraseña
+        ]);
+     
+        return redirect()->route('categorias.administrador.index')->with('info', 'Administrador actualizado con éxito');
+    }
+     
+
     public function updateProducto(Request $request, $id)
     {
         // Valida los datos antes de actualizarlos
@@ -157,6 +209,23 @@ class AdministradorController extends Controller
         $producto->update($request->all());
 
         return redirect()->route('categorias.productos.index')->with('info', 'Producto actualizado con éxito');
+    }
+
+    public function updateVendedor(Request $request, $id)
+    {
+        // Buscar el vendedor por ID
+        $vendedor = Vendedor::findOrFail($id);
+    
+        // Actualizar la información del vendedor
+        $vendedor->update([
+            'nombre' => $request->nombre,
+            'apellido' => $request->apellido,
+            'email' => $request->email,
+            'contraseña' => bcrypt($request->contraseña),  // Asegúrate de encriptar la contraseña
+        ]);
+    
+        // Redirigir a la página de lista de vendedores con un mensaje
+        return redirect()->route('categorias.vendedor.index')->with('info', 'Vendedor actualizado con éxito');
     }
 
     public function updateProveedor(Request $request, $id)
@@ -181,11 +250,17 @@ class AdministradorController extends Controller
         return redirect()->route('categorias.proveedor.index')->with('info', 'Proveedor actualizado con éxito');
     }
 
-
-
     /**
      * Remove the specified resource from storage.
      */
+
+    public function destroyAdministrador(Administrador $administrador)
+    {
+        $administrador->delete();
+        return redirect()->route('categorias.administrador.index')->with('info', 'Administrador eliminado con éxito');
+    }
+
+
     public function destroyProducto($id)
     {
         $producto = Producto::find($id);
@@ -195,6 +270,18 @@ class AdministradorController extends Controller
         $producto->delete();
         return redirect()->route('categorias.productos.index')->with('info', 'Producto eliminado con éxito');
     }
+
+    public function destroyVendedor($id)
+    {
+        $vendedor = Vendedor::find($id);
+        if ($vendedor) {
+            $vendedor->delete();
+            return redirect()->route('categorias.vendedor.index')->with('info', 'Vendedor eliminado con éxito');
+        } else {
+            return redirect()->route('categorias.vendedor.index')->with('error', 'Vendedor no encontrado');
+        }
+    }
+
 
     public function destroyProveedor($id)
     {

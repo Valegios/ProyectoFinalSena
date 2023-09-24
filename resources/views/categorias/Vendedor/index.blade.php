@@ -5,7 +5,7 @@
 
 @section('contenido')
     <div class="flex justify-end m-4">
-        <a href="{{ route('categorias.vendedor.create') }}" class="btn btn-outline btn-sm">Crear Vendedor</a>
+        <a href="{{ route('vendedor.create') }}" class="btn btn-outline btn-sm">Crear Vendedor</a>
     </div>
     <div class="flex justify-center">
         <div class="overflow-x-auto">
@@ -28,8 +28,8 @@
                             <td>{{ $vendedor->email }}</td>
                             <td>{{ $vendedor->contrasena }}</td>
                             <td class="flex space-x-2">
-                                <a href="{{ route('vendedors.edit', $vendedor->id) }}" class="btn btn-warning btn-xs">Editar</a>
-                                <form action="{{ route('vendedors.destroy', $vendedor->id) }}" method="POST">
+                                <a href="{{ route('administrador.editVendedor', $vendedor->id) }}" class="btn btn-warning btn-xs">Editar</a>
+                                <form action="{{ route('administrador.destroyVendedor', $vendedor->id) }}" method="POST">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" onclick="return confirm('¿Desea eliminar al vendedor {{ $vendedor->nombre }}?')" class="btn btn-error btn-xs">Eliminar</button>

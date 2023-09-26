@@ -31,7 +31,7 @@ class AutenticaController extends Controller
             'email' => $request->email,
             'password' => bcrypt($request->password),
             //'address' => $request->address,
-            'rol' => 'user'
+            'rol' => 'auth'
         ]);
 
         return to_route('login')->with('info', 'Registro exitoso');
@@ -68,7 +68,7 @@ class AutenticaController extends Controller
 
     public function perfil(){
         $user = auth()->user();
-        return view('autenticacion.perfil', compact('user'));
+        return view('categorias.autenticacion.perfil', compact('user'));
     }
 
     public function perfilUpdate(Request $request, User $user){

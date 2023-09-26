@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Administrador extends Model
 {
     use HasFactory;
-    protected $fillable = ['nombre', 'apellido', 'email', 'celular', 'contraseña'];
+    protected $fillable = ['name', 'apellido', 'email', 'celular', 'password'];
 
     public function compra()
     {

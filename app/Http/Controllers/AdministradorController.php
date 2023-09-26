@@ -6,6 +6,7 @@ use App\Models\Administrador; //Se importa el modelo administrador
 use App\Models\Producto; //Se importa el modelo producto
 use App\Models\Vendedor; //Se importa el modelo vendedor
 use App\Models\Proveedor; //Se importa el modelo proveedor
+use App\Models\User; //Se importa el modelo User
 use Illuminate\Http\Request; //Se importa la clase Request
 
 class AdministradorController extends Controller
@@ -37,20 +38,21 @@ class AdministradorController extends Controller
     {
         // Validación de los datos
         $request->validate([
-            'nombre' => 'required|string|max:100',
+            'name' => 'required|string|max:100',
             'apellido' => 'required|string|max:100',
             'email' => 'required|email|max:100',
             'celular' => 'required|string|max:15',
-            'contraseña' => 'required|string|min:8',
+            'password' => 'required|string|min:8',
         ]);
 
         // Crear el nuevo administrador
-        Administrador::create([
-            'nombre' => $request->nombre,
+        User::create([
+            'name' => $request->name,
             'apellido' => $request->apellido,
             'email' => $request->email,
             'celular' => $request->celular,
-            'contraseña' => bcrypt($request->contraseña),  // Se utiliza bcrypt para encriptar la contraseña
+            'password' => bcrypt($request->password),  // Se utiliza bcrypt para encriptar la contraseña
+            'rol' => 'admin' //Asignacion del rol de administrador
         ]);
 
         // Redirigir con un mensaje de éxito
@@ -78,18 +80,19 @@ class AdministradorController extends Controller
     {
         // Valida los datos antes de guardarlos
         $request->validate([
-            'nombre' => 'required',
+            'name' => 'required',
             'apellido' => 'required',
             'email' => 'required|email',
-            'contraseña' => 'required|min:8',
+            'password' => 'required|min:8',
         ]);
     
         // Crear el vendedor
-        Vendedor::create([
-            'nombre' => $request->nombre,
+        User::create([
+            'name' => $request->name,
             'apellido' => $request->apellido,
             'email' => $request->email,
-            'contraseña' => bcrypt($request->contraseña), // Se utiliza bcrypt para encriptar la contraseña
+            'password' => bcrypt($request->password), // Se utiliza bcrypt para encriptar la contraseña
+            'rol' => 'auth' //Asignacion de rol user=vendedor
         ]);
     
         // Redireccionar a la página de lista de vendedores con un mensaje
@@ -300,7 +303,13 @@ class AdministradorController extends Controller
         }
     }
 
+    public function __construct()
+    {
+        // Todos los usuarios deben estar autenticados para acceder a cualquier método de este controlador
+        $this->middleware('auth');
 
-
+        // Sólo los usuarios con rol de admin pueden acceder a todos los métodos de este controlador
+        $this->middleware('admin');
+    }
 
 }

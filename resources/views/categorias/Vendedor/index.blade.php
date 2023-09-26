@@ -23,7 +23,7 @@
                     @foreach ($vendedores as $vendedor)
                         <tr>
                             <td>{{ $vendedor->id }}</td>
-                            <td>{{ $vendedor->nombre }}</td>
+                            <td>{{ $vendedor->name }}</td>
                             <td>{{ $vendedor->apellido }}</td>
                             <td>{{ $vendedor->email }}</td>
                             <td>{{ $vendedor->contrasena }}</td>

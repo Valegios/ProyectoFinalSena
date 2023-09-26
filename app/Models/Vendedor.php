@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Vendedor extends Model
 {
     use HasFactory;
-    protected $fillable = ['nombre', 'apellido', 'email', 'contraseña'];
+    protected $fillable = ['name', 'apellido', 'email', 'password'];
 
     public function venta()
     {

@@ -23,7 +23,7 @@
                     @foreach ($administradores as $administrador)
                         <tr>
                             <td>{{ $administrador->id }}</td>
-                            <td>{{ $administrador->nombre }}</td>
+                            <td>{{ $administrador->name }}</td>
                             <td>{{ $administrador->apellido }}</td>
                             <td>{{ $administrador->email }}</td>
                             <td>{{ $administrador->celular }}</td>

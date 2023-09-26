@@ -9,10 +9,10 @@
             <form action="{{ route('administrador.store') }}" method="POST">
                 @csrf
                 <div class="form-control">
-                    <label class="label" for="nombre">
+                    <label class="label" for="name">
                         <span class="label-text">Nombre</span>
                     </label>
-                    <input type="text" name="nombre" placeholder="Nombre" maxlength="100"
+                    <input type="text" name="name" placeholder="Nombre" maxlength="100"
                         class="input input-bordered" required />
                 </div>
                 <div class="form-control">
@@ -37,10 +37,10 @@
                         class="input input-bordered" required />
                 </div>
                 <div class="form-control">
-                    <label class="label" for="contraseña">
+                    <label class="label" for="password">
                         <span class="label-text">Contraseña</span>
                     </label>
-                    <input type="password" name="contraseña" placeholder="Contraseña"
+                    <input type="password" name="password" placeholder="Contraseña"
                         class="input input-bordered" required />
                 </div>
                 <div class="form-control mt-6">

@@ -21,7 +21,7 @@ use App\Http\Controllers\AutenticaController;
 |
 */
 
-Route::view('/', 'welcome')->name('inicio');
+Route::view('/', 'categorias.inicio')->name('inicio');
 Route::resource('/administradors', AdministradorController::class);
 Route::resource('/proveedors', ProveedorController::class);
 Route::resource('/productos', ProductoController::class);

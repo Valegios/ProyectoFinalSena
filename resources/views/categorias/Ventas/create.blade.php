@@ -1,4 +1,7 @@
 @extends('layouts.app')
+@section('head')
+    <link href="ruta/a/select2.min.css" rel="stylesheet" />
+@endsection
 @section('titulo', 'Registrar Venta')
 @section('cabecera', 'Registrar Venta')
 @section('contenido')
@@ -21,17 +24,19 @@
                     <input type="number" name="precio" placeholder="Precio" class="input input-bordered" required />
                 </div>
                 <div class="form-control">
-                    <label class="label" for="cantidad">
-                        <span class="label-text">Cantidad</span>
-                    </label>
-                    <input type="number" name="cantidad" placeholder="Cantidad" class="input input-bordered" required />
-                </div>
-                <div class="form-control">
                     <label class="label" for="id_producto">
-                        <span class="label-text">ID del Producto</span>
+                        <span class="label-text">Seleccionar Producto</span>
                     </label>
-                    <input type="text" name="id_producto" placeholder="ID del Producto" class="input input-bordered" required />
+                    <select name="id_producto[]" class="select2 multiple='multiple'>
+                        @foreach($productos as $producto)
+                        <option value="{{ $producto->id }}">{{ $producto->nombre }}</option>
+                        @endforeach
+                    </select>
                 </div>
+                <div id="productosDiv">
+                    <!-- Aquí se insertarán los campos de selección de productos -->
+                  </div>
+                  <button id="agregarProducto" class="btn btn-primary">Añadir Producto</button>
                 <div class="form-control">
                     <label class="label" for="id_vendedor">
                         <span class="label-text">ID del Vendedor</span>
@@ -46,4 +51,25 @@
         </div>
     </div>
 </div>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const addButton = document.getElementById('add-product-button');
+      const productosDiv = document.getElementById('productosDiv');
+
+      addButton.addEventListener('click', function() {
+        const selectElement = document.createElement('select');
+        selectElement.name = "id_producto[]";
+        selectElement.classList.add('select2');
+        // Aquí puedes añadir las opciones para el selector desde tu lista de productos
+        // por ejemplo: 
+        selectElement.innerHTML = `
+          <option value="1">Producto 1</option>
+          <option value="2">Producto 2</option>
+          <option value="3">Producto 3</option>
+        `;
+        
+        productosDiv.appendChild(selectElement);
+      });
+    });
+  </script>
 @endsection

@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>@yield('titulo') - COORPAPER</title>
+  <link href="{{ asset('css/select2.min.css') }}" rel="stylesheet">
   @vite('resources/css/app.css')
 </head>
 <body>
@@ -36,5 +37,11 @@
       <p>Copyright © 2023 - CoorPaper</p>
     </div>
  </footer>
+ <!-- jQuery -->
+ <script src="{{ asset('js/jquery.min.js') }}"></script>
+ <!-- Select2 -->
+ <script src="{{ asset('js/select2.min.js') }}"></script>
+ <!-- Tu script personalizado -->
+ <script src="{{ asset('js/app.js') }}"></script>
 </body>
 </html>

@@ -7,6 +7,7 @@ use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\CompraController;
 use App\Http\Controllers\VendedorController;
 use App\Http\Controllers\VentaController;
+use App\Http\Controllers\AutenticaController;
 
 
 /*
@@ -28,10 +29,6 @@ Route::resource('/compras', CompraController::class);
 Route::resource('/vendedors', VendedorController::class);
 Route::resource('/ventas', VentaController::class);
 
-//Ruta para la vista de creación de administradores
-
-
-
 //Ruta para la vista de creación de productos
 Route::get('/agregar-producto', [ProductoController::class, 'create'])->name('agregar-producto');
 
@@ -42,9 +39,6 @@ Route::post('/administrador/storeProducto', [AdministradorController::class, 'st
 
 Route::post('/ventas', [VentaController::class, 'store'])->name('ventas.store');
 Route::post('/administrador/storeProveedor', [AdministradorController::class, 'storeProveedor'])->name('administrador.storeProveedor');
-
-//Ruta para la creacion de nuevos productos
-
 
 
 //Ruta para la vista de una lista de todos los productos que se tienen en la base de datos
@@ -92,3 +86,18 @@ Route::delete('/administradores/{administrador}', [AdministradorController::clas
 Route::delete('/productos/{id}/destroy', [AdministradorController::class, 'destroyProducto'])->name('administrador.destroyProducto');
 Route::delete('/proveedor/{id}/destroy', [AdministradorController::class, 'destroyProveedor'])->name('administrador.destroyProveedor');
 Route::delete('/vendedores/{id}/destroy', [AdministradorController::class, 'destroyVendedor'])->name('administrador.destroyVendedor');
+
+//Ruta de registro de usuarios
+route::view('/registro', 'categorias.autenticacion.registro')->name('registro');
+route::post('/registro', [AutenticaController::class, 'registro'])->name('registro.store');
+
+//Ruta de login de usuarios
+route::view('/login', 'categorias.autenticacion.login')->name('login');
+route::post('/login', [AutenticaController::class, 'login'])->name('login.store');
+//Ruta de logout del usuario
+route::post('/logout', [AutenticaController::class, 'logout'])->name('logout');
+//Ruta para editar el perfil de usuario
+Route::get('/perfil', [AutenticaController::class, 'perfil'])->name('perfil');
+Route::put('/perfil/{user}',[AutenticaController::class,'perfilUpdate'])->name('perfil.update');
+//Ruta para cambiar la contraseña de usuario
+Route::put('/perfil/password/{user}',[AutenticaController::class,'passwordUpdate'])->name('password.update');

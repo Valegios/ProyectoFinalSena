@@ -11,11 +11,11 @@
                 @if (auth()->user()->rol == 'admin')
                     <li><a href="{{ route('administradores.index') }}">Administradores</a></li>
                     <li><a href="{{ route('productos.index') }}">Productos</a></li>
-                    <li><a href="{{ route('vendedor.index') }}">Vendedores</a></li>
+                    <li><a href="{{ route('categorias.vendedor.index') }}">Vendedores</a></li>
                     <li><a href="{{ route('proveedors.index') }}">Proveedores</a></li>
-                    <li><a href="{{ route('ventas.index') }}">Ventas</a></li>
+                    <li><a href="{{ route('categorias.ventas.index') }}">Ventas</a></li>
                 @elseif (auth()->user()->rol == 'auth')
-                    <li><a href="{{ route('ventas.index') }}">Nueva Venta</a></li>
+                    <li><a href="{{ route('categorias.ventas.index') }}">Nueva Venta</a></li>
                     <li><a href="{{ route('productos.index') }}">Productos</a></li>
                     <li><a href="{{ route('proveedors.index') }}">Proveedores</a></li>
                 @endif

@@ -27,16 +27,12 @@
                     <label class="label" for="id_producto">
                         <span class="label-text">Seleccionar Producto</span>
                     </label>
-                    <select name="id_producto[]" class="select2 multiple='multiple'>
+                    <select name="id_producto[]" id="id_producto" class="mt-3 z-[1] p-2 shadow menu menu-sm bg-base-100 rounded-box w-52">
                         @foreach($productos as $producto)
-                        <option value="{{ $producto->id }}">{{ $producto->nombre }}</option>
-                        @endforeach
+                            <option value="{{ $producto->id }}" class="link link-hover">{{ $producto->nombre }}</option>
+                        @endforeach    
                     </select>
-                </div>
-                <div id="productosDiv">
-                    <!-- Aquí se insertarán los campos de selección de productos -->
-                  </div>
-                  <button id="agregarProducto" class="btn btn-primary">Añadir Producto</button>
+                </div>               
                 <div class="form-control">
                     <label class="label" for="id_vendedor">
                         <span class="label-text">ID del Vendedor</span>
@@ -45,31 +41,31 @@
                 </div>
                 <div class="form-control mt-6">
                     <button class="btn btn-primary">Registrar Venta</button>
-                    <a href="{{ route('ventas.index') }}" class="btn btn-outline btn-primary mt-4">Cancelar</a>
+                    <a href="{{ route('categorias.ventas.index') }}" class="btn btn-outline btn-primary mt-4">Cancelar</a>
                 </div>
             </form>
         </div>
     </div>
 </div>
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-      const addButton = document.getElementById('add-product-button');
-      const productosDiv = document.getElementById('productosDiv');
 
-      addButton.addEventListener('click', function() {
-        const selectElement = document.createElement('select');
-        selectElement.name = "id_producto[]";
-        selectElement.classList.add('select2');
-        // Aquí puedes añadir las opciones para el selector desde tu lista de productos
-        // por ejemplo: 
-        selectElement.innerHTML = `
-          <option value="1">Producto 1</option>
-          <option value="2">Producto 2</option>
-          <option value="3">Producto 3</option>
-        `;
+<script>
+    document.getElementById('agregarProducto').addEventListener('click', function() {
+        const productosDiv = document.getElementById('productosDiv');
+        const newSelect = document.createElement('select');
+        newSelect.name = 'id_producto[]';
+        newSelect.classList.add('mt-3', 'z-[1]', 'p-2', 'shadow', 'menu', 'menu-sm', 'bg-base-100', 'rounded-box', 'w-52');
         
-        productosDiv.appendChild(selectElement);
-      });
+        // Opción de ejemplo, puedes generar esto dinámicamente con tus productos
+        @foreach($productos as $producto)
+            const option = document.createElement('option');
+            option.value = "{{ $producto->id }}";
+            option.classList.add('link', 'link-hover');
+            option.textContent = "{{ $producto->nombre }}";
+            newSelect.appendChild(option);
+        @endforeach
+
+        productosDiv.appendChild(newSelect);
     });
-  </script>
+</script>
+
 @endsection

@@ -29,43 +29,27 @@ Route::resource('/compras', CompraController::class);
 Route::resource('/vendedors', VendedorController::class);
 Route::resource('/ventas', VentaController::class);
 
-//Ruta para la vista de creación de productos
-Route::get('/agregar-producto', [ProductoController::class, 'create'])->name('agregar-producto');
-
-Route::get('/categorias/proveedor', [ProveedorController::class, 'index'])->name('categorias.proveedor.index');
-
-
-Route::post('/administrador/storeProducto', [AdministradorController::class, 'storeProducto'])->name('administrador.storeProducto');
-
-Route::post('/ventas', [VentaController::class, 'store'])->name('ventas.store');
-Route::post('/administrador/storeProveedor', [AdministradorController::class, 'storeProveedor'])->name('administrador.storeProveedor');
-
-
-//Ruta para la vista de una lista de todos los productos que se tienen en la base de datos
-Route::get('/productos', [ProductoController::class, 'index'])->name('productos.index');
-Route::get('/categorias/administrador', [AdministradorController::class, 'index'])->name('categorias.administrador.index');
-Route::get('/categorias/vendedor', [VendedorController::class, 'index'])->name('categorias.vendedor.index');
-
-
-
-Route::put('/productos/{id}', [AdministradorController::class, 'updateProducto'])->name('administrador.updateProducto');
-
-
 //Rutas para mostrar las listas con los datos
+Route::get('/categorias/administrador', [AdministradorController::class, 'index'])->name('categorias.administrador.index');
 Route::get('/administradores', [AdministradorController::class, 'index'])->name('administradores.index');
 Route::get('/productos', [ProductoController::class, 'index'])->name('productos.index');
 Route::get('/categorias/productos', [ProductoController::class, 'index'])->name('categorias.productos.index');
-Route::get('/vendedor', [VendedorController::class, 'index'])->name('vendedor.index');
+Route::get('/categorias/vendedor', [VendedorController::class, 'index'])->name('categorias.vendedor.index');
+Route::get('/ventas', [VentaController::class, 'index'])->name('categorias.ventas.index');
+Route::get('/categorias/proveedor', [ProveedorController::class, 'index'])->name('categorias.proveedor.index');
 
 //Ruta para mostrar los formularios de creacion
 Route::get('/vendedor/create', [VendedorController::class, 'create'])->name('vendedor.create');
 Route::get('/proveedor/create', [ProveedorController::class, 'create'])->name('proveedor.create');
 Route::get('/administrador/create', [AdministradorController::class, 'create'])->name('administrador.create');
+Route::get('/agregar-producto', [ProductoController::class, 'create'])->name('agregar-producto');
 
 //Ruta para almacenar nuevos datos
 Route::post('/administrador/storeVendedor', [AdministradorController::class, 'storeVendedor'])->name('administrador.storeVendedor');
 Route::post('/administrador', [AdministradorController::class, 'storeAdministrador'])->name('administrador.store');
-
+Route::post('/ventas', [VentaController::class, 'store'])->name('ventas.store');
+Route::post('/administrador/storeProducto', [AdministradorController::class, 'storeProducto'])->name('administrador.storeProducto');
+Route::post('/administrador/storeProveedor', [AdministradorController::class, 'storeProveedor'])->name('administrador.storeProveedor');
 
 //Ruta para mostrar los formularios de edicion
 Route::get('/administradores/{id}/edit', [AdministradorController::class, 'editAdministrador'])->name('administrador.editAdministrador'); //pendiente de edit en administrador controller

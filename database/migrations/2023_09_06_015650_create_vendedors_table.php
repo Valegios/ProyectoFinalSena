@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('vendedors', function (Blueprint $table) {
             $table->id();
-            $table->string('nombre', 100);
+            $table->string('name', 100);
             $table->string('apellido', 100);
             $table->string('email', 100);
-            $table->string('contraseña');
+            $table->string('password');
             $table->timestamps();
         });
     }

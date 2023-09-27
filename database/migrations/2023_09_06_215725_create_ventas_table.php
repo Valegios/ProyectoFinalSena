@@ -14,9 +14,7 @@ return new class extends Migration
         Schema::create('ventas', function (Blueprint $table) {
             $table->id();
             $table->date('fecha');
-            $table->integer('precio');
-            $table->integer('cantidad');
-            $table->foreignId('id_producto_2')->constrained('productos'); //Relacion con la tabla producto
+            $table->integer('precio');            
             $table->foreignId('id_vendedor')->constrained('vendedors'); //Relacion con la tabla vendedor
             $table->timestamps();
         });

@@ -14,9 +14,7 @@
                     <tr>
                         <th>ID Venta</th>
                         <th>Fecha</th>
-                        <th>Precio de Venta</th>
-                        <th>Número de Artículos</th>
-                        <th>ID Producto</th>
+                        <th>Precio de Venta</th>                       
                         <th>ID Vendedor</th>                        
                     </tr>
                 </thead>
@@ -25,9 +23,7 @@
                         <tr>
                             <td>{{ $venta->id }}</td>
                             <td>{{ $venta->fecha }}</td>
-                            <td>{{ $venta->precio_venta }}</td>
-                            <td>{{ $venta->numero_articulos }}</td>
-                            <td>{{ $venta->id_producto }}</td>
+                            <td>{{ $venta->precio_venta }}</td>                          
                             <td>{{ $venta->id_vendedor }}</td>
                             <td class="flex space-x-2">
                                 <a href="{{ route('ventas.edit', $venta->id) }}" class="btn btn-warning btn-xs">Editar</a>

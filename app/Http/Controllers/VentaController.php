@@ -40,13 +40,19 @@ class VentaController extends Controller
             'id_producto' => 'required|array', // Asegúrate de que se selecciona al menos un producto
         ]);
 
+        // Verificar que el vendedor exista
+        $vendedor = \App\Models\Vendedor::find($request->input('id_vendedor'));
+        if(!$vendedor) {
+            return redirect()->route('categorias.ventas.index')->with('error', 'El vendedor no existe');
+        }
+
         // Inicializar el precio total
         $precioTotal = 0;
 
         // Recorrer todos los productos seleccionados y actualizar el stock y sumar el precio
         foreach ($request->input('id_producto') as $producto_id) {
             $producto = Producto::find($producto_id);
-        
+    
             // Sumar el precio del producto al precio total
             $precioTotal += $producto->precio;
 
@@ -60,13 +66,11 @@ class VentaController extends Controller
         $venta->fecha = $request->input('fecha');
         $venta->precio = $precioTotal; // Usar el precio total calculado
         $venta->id_vendedor = $request->input('id_vendedor');
-        $venta->cantidad = 1;
         $venta->save();
 
         // Redirigir con un mensaje
         return redirect()->route('categorias.ventas.index')->with('info', 'Venta creada con éxito');
     }
-
 
 
     /**

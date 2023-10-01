@@ -43,6 +43,7 @@ Route::get('/vendedor/create', [VendedorController::class, 'create'])->name('ven
 Route::get('/proveedor/create', [ProveedorController::class, 'create'])->name('proveedor.create');
 Route::get('/administrador/create', [AdministradorController::class, 'create'])->name('administrador.create');
 Route::get('/agregar-producto', [ProductoController::class, 'create'])->name('agregar-producto');
+Route::get('/ventas/create/{id}', [VentaController::class, 'create'])->name('venta.create');
 
 //Ruta para almacenar nuevos datos
 Route::post('/administrador/storeVendedor', [AdministradorController::class, 'storeVendedor'])->name('administrador.storeVendedor');

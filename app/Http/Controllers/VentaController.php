@@ -13,9 +13,9 @@ class VentaController extends Controller
      */
     public function index()
     {
-        $ventas = Venta::all(); // Se consultan todas las ventas
+        // Mostrar todas las ventas (con paginación)
+        $ventas = Venta::orderBy('fecha', 'desc')->paginate(10);
         return view('categorias.ventas.index', ['ventas' => $ventas]);
-
     }
 
     /**
@@ -32,44 +32,30 @@ class VentaController extends Controller
      */
     public function store(Request $request)
     {
-        // Validar los campos requeridos
-        $request->validate([
-            'fecha' => 'required',
-            'precio' => 'required',
-            'id_vendedor' => 'required',
-            'id_producto' => 'required|array', // Asegúrate de que se selecciona al menos un producto
+        // Encontrar el producto en la base de datos
+        $producto = Producto::find($request->id_producto);
+
+        // Guarda la venta en la tabla ventas
+        $venta = Venta::create([
+            'fecha' => now(),
+            'precio' => $producto->precio * $request->cantidad, //  calcula el precio total de la venta multiplicando el precio unitario del producto
+            'id_vendedor' => auth()->user()->id, // Asumiendo que el vendedor está logueado
+
         ]);
 
-        // Verificar que el vendedor exista
-        $vendedor = \App\Models\Vendedor::find($request->input('id_vendedor'));
-        if(!$vendedor) {
-            return redirect()->route('categorias.ventas.index')->with('error', 'El vendedor no existe');
-        }
+        // Guarda los productos en la tabla pivote (venta_producto)
+        $venta->productos()->attach($producto->id, [
+            'cantidad' => $request->cantidad,
+            'precio' => $producto->precio,
 
-        // Inicializar el precio total
-        $precioTotal = 0;
+        ]);
 
-        // Recorrer todos los productos seleccionados y actualizar el stock y sumar el precio
-        foreach ($request->input('id_producto') as $producto_id) {
-            $producto = Producto::find($producto_id);
-    
-            // Sumar el precio del producto al precio total
-            $precioTotal += $producto->precio;
+        // Resta la cantidad de productos vendidos al stock
+        $producto->stock -= $request->cantidad;
+        $producto->save();
 
-            // Restar 1 del stock del producto (o la cantidad que se venda)
-            $producto->stock -= 1;
-            $producto->save();
-        }
+        return redirect()->route('categorias.ventas.index')->with('info', 'Venta realizada con éxito');
 
-        // Crear una nueva venta
-        $venta = new Venta();
-        $venta->fecha = $request->input('fecha');
-        $venta->precio = $precioTotal; // Usar el precio total calculado
-        $venta->id_vendedor = $request->input('id_vendedor');
-        $venta->save();
-
-        // Redirigir con un mensaje
-        return redirect()->route('categorias.ventas.index')->with('info', 'Venta creada con éxito');
     }
 
 
@@ -86,7 +72,7 @@ class VentaController extends Controller
      */
     public function edit(Venta $venta)
     {
-        //
+        return view('categorias.ventas.edit', ['venta' => $venta]);
     }
 
     /**
@@ -94,7 +80,16 @@ class VentaController extends Controller
      */
     public function update(Request $request, Venta $venta)
     {
-        //
+        // Actualiza los campos de la tabla ventas
+        $venta->fecha = $request->fecha;
+        $venta->precio = $request->precio;
+        $venta->id_vendedor = $request->id_vendedor;
+
+        // Guarda los cambios en la base de datos
+        $venta->save();
+
+        // Redirige al usuario a la lista de ventas con un mensaje informativo
+        return redirect()->route('categorias.ventas.index')->with('info', 'La venta ha sido actualizada con éxito');
     }
 
     /**
@@ -102,15 +97,19 @@ class VentaController extends Controller
      */
     public function destroy(Venta $venta)
     {
-        //
+        // Eliminar la venta de la tabla pivote (venta_producto)
+        $venta->productos()->detach();    
+        // Eliminar la venta de la tabla ventas
+        $venta->delete();
+    
+        return redirect()->route('categorias.ventas.index')->with('info', 'Venta eliminada con éxito');
     }
 
-    public function __construct()
+    /**public function __construct()
     {
         // Todos los usuarios deben estar autenticados para acceder a cualquier método de este controlador
         $this->middleware('auth');
-
         // Sólo los usuarios con rol de admin pueden acceder a todos los métodos de este controlador
-        $this->middleware('admin');
-    }
+        $this->middleware('admin')->only(['edit', 'update', 'destroy']);
+    }*/
 }

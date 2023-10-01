@@ -11,8 +11,8 @@ class Producto extends Model
     use HasFactory;
     protected $fillable = ['nombre', 'precio', 'referencia', 'stock', 'id_proveedor'];
 
-    public function venta()
+    public function Ventas()
     {
-        return $this->hasMany(venta::class); //Un producto puede ser vendido muchas veces
+        return $this->belongsToMany(venta::class)->withPivot('cantidad', 'precio'); //Un producto puede estar en varias ventas
     }
 }

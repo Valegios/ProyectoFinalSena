@@ -23,7 +23,7 @@
                         <tr>
                             <td>{{ $venta->id }}</td>
                             <td>{{ $venta->fecha }}</td>
-                            <td>{{ $venta->precio_venta }}</td>                          
+                            <td>{{ $venta->precio }}</td>                          
                             <td>{{ $venta->id_vendedor }}</td>
                             <td class="flex space-x-2">
                                 <a href="{{ route('ventas.edit', $venta->id) }}" class="btn btn-warning btn-xs">Editar</a>

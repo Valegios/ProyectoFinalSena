@@ -11,14 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('administradors', function (Blueprint $table) {
+        Schema::create('venta_producto', function (Blueprint $table) {
             $table->id();
-            $table->string('name', 100);
-            $table->string('apellido', 100);
-            $table->string('email', 100);
-            $table->string('celular', 20);
-            $table->string('password');
-            //$table->string('rol');
+            $table->foreignId('id_producto')->constrained('productos');
+            $table->foreignId('id_venta')->constrained('ventas');
+            $table->integer('cantidad');
+            $table->integer('precio');
             $table->timestamps();
         });
     }
@@ -28,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('administradors');
+        Schema::dropIfExists('venta_producto');
     }
 };

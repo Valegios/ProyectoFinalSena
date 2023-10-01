@@ -64,12 +64,12 @@ class VendedorController extends Controller
         //
     }
 
-    public function __construct()
+    /**public function __construct()
     {
         // Todos los usuarios deben estar autenticados para acceder a cualquier método de este controlador
         $this->middleware('auth');
 
         // Sólo los usuarios con rol de admin pueden acceder a todos los métodos de este controlador
         $this->middleware('admin');
-    }
+    }*/
 }

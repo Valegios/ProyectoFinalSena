@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+//use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
 class CheckAdmin
@@ -19,10 +20,10 @@ class CheckAdmin
         if (auth()->check()) {
             // Verificar si el rol del usuario es 'admin' o 'auth' (vendedor)
             if (auth()->user()->rol === 'admin' || auth()->user()->rol === 'auth') {
-                return $next($request);
+            return $next($request);
             }
-        }
-
+        }          
+        
         // Abortar con un estado HTTP 403 si el usuario no tiene permisos
         abort(403, 'Acceso no autorizado');
     }

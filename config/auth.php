@@ -40,6 +40,17 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+
+        //'admin' => [
+        //    'driver' => 'session',
+        //    'provider' => 'admins', 
+        //],
+
+        //'vendedor' => [ // Usando 'vendedor' aquí, pero realmente es para el rol 'auth'
+        //    'driver' => 'session',
+        //    'provider' => 'users', // Utilizamos el mismo proveedor que para el guard 'web'
+        //],
+
     ],
 
     /*
@@ -65,10 +76,13 @@ return [
             'model' => App\Models\User::class,
         ],
 
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
+        //'admins' => [
+        //    'driver' => 'eloquent',
+        //    'model' => App\Models\Administrador::class,
+        //],
+
+        //No se necesita un proveedor separado para vendedor ya que se utiliza la misma tabla de users
+        
     ],
 
     /*

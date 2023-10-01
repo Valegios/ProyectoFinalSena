@@ -12,7 +12,7 @@ use Illuminate\Http\Request; //Se importa la clase Request
 class AdministradorController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Muestra una lista de este recurso
      */
     public function index()
     {
@@ -23,7 +23,7 @@ class AdministradorController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Muestra un formulario para crear un nuevo recurso
      */
     public function create()
     {
@@ -32,7 +32,7 @@ class AdministradorController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Guarda un nuevo recurso en la base de datos
      */
     public function storeAdministrador(Request $request)
     {
@@ -46,7 +46,7 @@ class AdministradorController extends Controller
         ]);
 
         // Crear el nuevo administrador
-        User::create([
+        Administrador::create([
             'name' => $request->name,
             'apellido' => $request->apellido,
             'email' => $request->email,
@@ -87,7 +87,7 @@ class AdministradorController extends Controller
         ]);
     
         // Crear el vendedor
-        User::create([
+        Vendedor::create([
             'name' => $request->name,
             'apellido' => $request->apellido,
             'email' => $request->email,
@@ -118,7 +118,7 @@ class AdministradorController extends Controller
 
 
     /**
-     * Display the specified resource.
+     * Muestra un unico recurso especifico
      */
     public function show(Administrador $administrador)
     {
@@ -126,7 +126,7 @@ class AdministradorController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Muestra el formulario para editar un recurso
      */
     public function editAdministrador($id)
     {
@@ -166,7 +166,7 @@ class AdministradorController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Actualiza un recurso especifico en la base de datos
      */
 
     public function updateAdministrador(Request $request, $id)
@@ -254,7 +254,7 @@ class AdministradorController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Elimina un recurso especifico de la base de datos
      */
 
     public function destroyAdministrador(Administrador $administrador)
@@ -303,13 +303,13 @@ class AdministradorController extends Controller
         }
     }
 
-    public function __construct()
+    /**public function __construct()
     {
         // Todos los usuarios deben estar autenticados para acceder a cualquier método de este controlador
         $this->middleware('auth');
 
         // Sólo los usuarios con rol de admin pueden acceder a todos los métodos de este controlador
         $this->middleware('admin');
-    }
+    }*/
 
 }

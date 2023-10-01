@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Producto;
+use App\Models\Proveedor;
 use Illuminate\Http\Request;
 
 class ProductoController extends Controller
@@ -21,7 +22,8 @@ class ProductoController extends Controller
      */
     public function create()
     {
-        return view('categorias.productos.create');
+        $proveedores = Proveedor::all();
+        return view('categorias.productos.create', ['proveedores' => $proveedores]);
     }
 
     /**
@@ -65,11 +67,11 @@ class ProductoController extends Controller
     }
 
     //Protegemos las rutas de este controlador con el middleware auth y admin (autenticado y rol de admin)
-    public function __construct()
+    /**public function __construct()
     {
         //Sólo los usuarios autenticados y con rol de admin pueden acceder a todos los métodos de este controlador
         $this->middleware('auth');
         $this->middleware('admin');
-    }
+    }**/
 
 }

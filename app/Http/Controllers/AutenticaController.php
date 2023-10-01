@@ -12,7 +12,6 @@ class AutenticaController extends Controller
         $request->validate([
             'name' => 'required|max:255',
             'email' => 'required|email|max:255|unique:users',
-            //'address' => 'required',
             'password' => 'required|min:5|confirmed'
         ],    
         [
@@ -20,7 +19,6 @@ class AutenticaController extends Controller
             'email.required' => 'El email es obligatorio',
             'email.email' => 'El email no es válido',
             'email.unique' => 'El email ya está registrado',
-            //'address.required' => 'La dirección es obligatoria',
             'password.required' => 'La contraseña es obligatoria',
             'password.min' => 'La contraseña debe tener al menos 5 caracteres',
             'password.confirmed' => 'Las contraseñas no coinciden']
@@ -29,8 +27,7 @@ class AutenticaController extends Controller
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
-            'password' => bcrypt($request->password),
-            //'address' => $request->address,
+            'password' => bcrypt($request->password),            
             'rol' => 'auth'
         ]);
 
@@ -54,9 +51,11 @@ class AutenticaController extends Controller
             return redirect()->intended('productos')->with('info', 'Bienvenido, ' . auth()->user()->name);
         }
 
+        // Si llega aquí, la autenticación falló
         return back()->withErrors([
             'email' => 'Datos de acceso incorrectos',
-        ]);        
+        ]);
+
     }
 
     public function logout(Request $request){
@@ -75,14 +74,14 @@ class AutenticaController extends Controller
         $request->validate([
             'name' => 'required|max:255',
             'email' => 'required|email|max:255|unique:users,email,' . $user->id,
-            //'address' => 'required'
+            
         ],
         [
             'name.required' => 'El nombre es obligatorio',
             'email.required' => 'El email es obligatorio',
             'email.email' => 'El email no es válido',
             'email.unique' => 'El email ya está registrado',
-            //'address.required' => 'La dirección es obligatoria'
+            
         ]);
 
         $user->update($request->all());

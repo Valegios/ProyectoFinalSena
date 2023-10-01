@@ -8,13 +8,7 @@
         <div class="card-body">
             <form action="{{ route('administrador.storeProducto') }}" method="POST">
                 @csrf
-                <div class="form-control">
-                    <label class="label" for="id_producto">
-                        <span class="label-text">ID del Producto</span>
-                    </label>
-                    <input type="text" name="id_producto" placeholder="ID del Producto" maxlength="100"
-                        class="input input-bordered" required />
-                </div>
+                
                 <div class="form-control">
                     <label class="label" for="nombre">
                         <span class="label-text">Nombre</span>
@@ -36,13 +30,18 @@
                     <input type="text" name="referencia" placeholder="Referencia" maxlength="255"
                         class="input input-bordered" required />
                 </div>
+                
                 <div class="form-control">
                     <label class="label" for="id_proveedor">
-                        <span class="label-text">ID del Proveedor</span>
+                        <span class="label-text">Proveedor</span>
                     </label>
-                    <input type="number" name="id_proveedor" placeholder="ID del Proveedor" min="1"
-                        class="input input-bordered" required />
+                    <select name="id_proveedor" class="select select-bordered">
+                        @foreach($proveedores as $proveedor)
+                            <option value="{{ $proveedor->id }}">{{ $proveedor->nombre }}</option>
+                        @endforeach
+                    </select>
                 </div>
+                
                 <div class="form-control">
                     <label class="label" for="stock">
                         <span class="label-text">Stock</span>

@@ -8,13 +8,7 @@
         <div class="card-body">
             <form action="{{ route('administrador.storeProveedor') }}" method="POST">
                 @csrf
-                <div class="form-control">
-                    <label class="label" for="id_proveedor">
-                        <span class="label-text">ID del Proveedor</span>
-                    </label>
-                    <input type="text" name="id_proveedor" placeholder="ID del Proveedor" maxlength="100"
-                        class="input input-bordered" required />
-                </div>
+                
                 <div class="form-control">
                     <label class="label" for="nombre">
                         <span class="label-text">Nombre</span>

@@ -8,10 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Vendedor extends Model
 {
     use HasFactory;
-    protected $fillable = ['name', 'apellido', 'email', 'password'];
+    protected $fillable = ['name', 'apellido', 'email', 'password']; //Se elimina rol
 
-    public function venta()
+    public function ventas()
     {
-        return $this->hasMany(venta::class); //Un vendedor puede realizar muchas ventas
+        return $this->hasMany(Venta::class, 'id_vendedor'); //Un vendedor puede realizar varias ventas
     }
+
 }

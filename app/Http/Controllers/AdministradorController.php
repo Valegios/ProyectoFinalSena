@@ -55,6 +55,14 @@ class AdministradorController extends Controller
             'rol' => 'admin' //Asignacion del rol de administrador
         ]);
 
+        // Crear el nuevo administrador en la tabla de users
+        User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => bcrypt($request->password),
+            'rol' => 'admin'
+        ]);
+
         // Redirigir con un mensaje de éxito
         return redirect()->route('categorias.administrador.index')->with('info', 'Administrador creado con éxito');
     }
@@ -93,6 +101,14 @@ class AdministradorController extends Controller
             'email' => $request->email,
             'password' => bcrypt($request->password), // Se utiliza bcrypt para encriptar la contraseña
             'rol' => 'auth' //Asignacion de rol user=vendedor
+        ]);
+
+        // Crear el nuevo vendedor en la tabla de users
+        User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => bcrypt($request->password),
+            'rol' => 'auth'
         ]);
     
         // Redireccionar a la página de lista de vendedores con un mensaje

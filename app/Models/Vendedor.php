@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Vendedor extends Model
 {
     use HasFactory;
-    protected $fillable = ['name', 'apellido', 'email', 'password']; //Se elimina rol
+    protected $fillable = ['name', 'apellido', 'email', 'password', 'rol']; //Se elimina rol
 
     public function ventas()
     {

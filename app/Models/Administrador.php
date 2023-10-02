@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 class Administrador extends Model //Authenticatable
 {
     use HasFactory;
-    protected $fillable = ['name', 'apellido', 'email', 'celular', 'password'];//Se elimina rol
+    protected $fillable = ['name', 'apellido', 'email', 'celular', 'password', 'rol'];
 
     public function Compra()
     {

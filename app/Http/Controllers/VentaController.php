@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Venta;
 use App\Models\Producto; //Se importa el modelo producto
+use App\Models\Vendedor; //Se importa el modelo vendedor
 use Illuminate\Http\Request;
 
 class VentaController extends Controller
@@ -35,11 +36,18 @@ class VentaController extends Controller
         // Encontrar el producto en la base de datos
         $producto = Producto::find($request->id_producto);
 
+        // Encuentra el vendedor relacionado con el usuario logueado
+        $vendedor = Vendedor::where('user_id', auth()->user()->id)->first();
+
+        if (!$vendedor) {
+            return redirect()->route('categorias.ventas.index')->with('error', 'Vendedor no encontrado');
+        }
+
         // Guarda la venta en la tabla ventas
         $venta = Venta::create([
             'fecha' => now(),
             'precio' => $producto->precio * $request->cantidad, //  calcula el precio total de la venta multiplicando el precio unitario del producto
-            'id_vendedor' => auth()->user()->id, // Asumiendo que el vendedor está logueado
+            'id_vendedor' => $vendedor->id, // Asumiendo que el vendedor está logueado
 
         ]);
 

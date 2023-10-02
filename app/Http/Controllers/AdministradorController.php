@@ -52,7 +52,7 @@ class AdministradorController extends Controller
             'email' => $request->email,
             'celular' => $request->celular,
             'password' => bcrypt($request->password),  // Se utiliza bcrypt para encriptar la contraseña
-            'rol' => 'admin' //Asignacion del rol de administrador
+            //'rol' => 'admin' //Asignacion del rol de administrador
         ]);
 
         // Crear el nuevo administrador en la tabla de users
@@ -93,6 +93,15 @@ class AdministradorController extends Controller
             'email' => 'required|email',
             'password' => 'required|min:8',
         ]);
+
+
+        // Crear el nuevo vendedor en la tabla de users
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => bcrypt($request->password),
+            'rol' => 'auth'
+        ]);
     
         // Crear el vendedor
         Vendedor::create([
@@ -100,16 +109,8 @@ class AdministradorController extends Controller
             'apellido' => $request->apellido,
             'email' => $request->email,
             'password' => bcrypt($request->password), // Se utiliza bcrypt para encriptar la contraseña
-            'rol' => 'auth' //Asignacion de rol user=vendedor
-        ]);
-
-        // Crear el nuevo vendedor en la tabla de users
-        User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => bcrypt($request->password),
-            'rol' => 'auth'
-        ]);
+            'user_id' => $user->id //Asignacion de rol user=vendedor
+        ]);        
     
         // Redireccionar a la página de lista de vendedores con un mensaje
         return redirect()->route('categorias.vendedor.index')->with('info', 'Vendedor creado con éxito');

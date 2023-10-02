@@ -19,6 +19,6 @@ class Venta extends Model
     // Una venta puede tener varios productos
     public function productos()
     {
-        return $this->belongsToMany(Producto::class)->withPivot('cantidad', 'precio');
+        return $this->belongsToMany(Producto::class, 'venta_producto', 'id_venta', 'id_producto')->withPivot('cantidad', 'precio');
     }
 }

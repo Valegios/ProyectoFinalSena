@@ -17,7 +17,8 @@ return new class extends Migration
             $table->string('apellido', 100);
             $table->string('email', 100);
             $table->string('password');
-            //$table->string('rol');
+            $table->unsignedBigInteger('user_id'); //Se define la columna            
+            $table->foreign('user_id')->references('id')->on('users'); //Se configura la clave foranea
             $table->timestamps();
         });
     }

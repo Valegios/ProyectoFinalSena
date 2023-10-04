@@ -154,10 +154,11 @@ class AdministradorController extends Controller
         return view('categorias.administrador.edit', ['administrador' => $administrador]);
     }
 
-    public function editProducto(Producto $producto)
+    public function editProducto($id)
     {
-        //Modifica los datos de un producto ya ingresado
-        return view('categorias.productos.edit', ['producto' => $producto]);
+        $producto = Producto::find($id);
+        $proveedores = Proveedor::all();
+        return view('categorias.productos.edit', ['producto' => $producto, 'proveedores' => $proveedores]);
     }
 
     public function editVendedor($id)

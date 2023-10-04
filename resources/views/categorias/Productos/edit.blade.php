@@ -10,12 +10,7 @@
                 @csrf
                 @method('PUT')
 
-                <div class="form-control">
-                    <label class="label" for="id_producto">
-                        <span class="label-text">ID Producto</span>
-                    </label>
-                    <input type="text" name="id_producto" class="input input-bordered" value="{{$producto->id}}" readonly />
-                </div>
+                
 
                 <div class="form-control">
                     <label class="label" for="nombre">
@@ -40,9 +35,13 @@
 
                 <div class="form-control">
                     <label class="label" for="id_proveedor">
-                        <span class="label-text">ID Proveedor</span>
+                        <span class="label-text">Proveedor</span>
                     </label>
-                    <input type="number" name="id_proveedor" placeholder="ID del proveedor" class="input input-bordered" value="{{$producto->id_proveedor}}" required />
+                    <select name="id_proveedor" class="select select-bordered">
+                        @foreach($proveedores as $proveedor)
+                            <option value="{{ $proveedor->id }}">{{ $proveedor->nombre }}</option>
+                        @endforeach
+                    </select>
                 </div>
                 <div class="form-control">
                     <label class="label" for="stock">

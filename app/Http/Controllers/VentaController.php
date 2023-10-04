@@ -6,6 +6,7 @@ use App\Models\Venta;
 use App\Models\Producto; //Se importa el modelo producto
 use App\Models\Vendedor; //Se importa el modelo vendedor
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class VentaController extends Controller
 {
@@ -78,9 +79,12 @@ class VentaController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Venta $venta)
+    public function edit($id)
     {
-        return view('categorias.ventas.edit', ['venta' => $venta]);
+        $venta = Venta::with('productos')->find($id); // Cargamos la relación con productos
+        $productos = Producto::all();
+        return view('categorias.ventas.edit', compact('venta', 'productos'));
+        
     }
 
     /**
@@ -88,17 +92,57 @@ class VentaController extends Controller
      */
     public function update(Request $request, Venta $venta)
     {
-        // Actualiza los campos de la tabla ventas
-        $venta->fecha = $request->fecha;
-        $venta->precio = $request->precio;
-        $venta->id_vendedor = $request->id_vendedor;
+        // Validaciones
+        $request->validate([
+            'fecha' => 'required|date',
+            'id_producto' => 'required|exists:productos,id',
+            'cantidad' => 'required|integer|min:1'
+        ]);
 
-        // Guarda los cambios en la base de datos
+        // Buscar el producto
+        $producto = Producto::find($request->id_producto);
+
+        // Verificar si el producto existe
+        if (!$producto) {
+        return redirect()->back()->with('error', 'Producto no encontrado');
+        }
+
+        // Buscar el vendedor relacionado con el usuario autenticado
+        $vendedor = Vendedor::where('user_id', auth()->user()->id)->first();
+
+        // Verificar si el vendedor existe
+        if (!$vendedor) {
+        return redirect()->back()->with('error', 'Vendedor no encontrado');
+        }
+
+        DB::beginTransaction();
+
+    try {
+        // Actualizar la venta
+        $venta->fecha = $request->fecha;
+        $venta->precio = $producto->precio * $request->cantidad;
+        $venta->id_vendedor = $vendedor->id;
         $venta->save();
 
-        // Redirige al usuario a la lista de ventas con un mensaje informativo
+        // Actualizar la tabla intermedia (suponiendo que una venta puede tener solo un producto)
+        $venta->productos()->sync([$producto->id => ['cantidad' => $request->cantidad, 'precio' => $producto->precio]]);
+
+        // Actualizar el stock del producto
+        $producto->stock -= $request->cantidad;
+        $producto->save();
+
+        // Confirmar la transacción
+        DB::commit();
+
         return redirect()->route('categorias.ventas.index')->with('info', 'La venta ha sido actualizada con éxito');
+
+        } catch (\Exception $e) {
+            // Deshacer los cambios en caso de error
+            DB::rollback();
+            return redirect()->back()->with('error', 'Ocurrió un error al actualizar la venta');
+        }
     }
+
 
     /**
      * Remove the specified resource from storage.

@@ -13,18 +13,36 @@
                 <thead>
                     <tr>
                         <th>ID Venta</th>
+                        <th>ID Vendedor</th>
                         <th>Fecha</th>
-                        <th>Precio de Venta</th>                       
-                        <th>ID Vendedor</th>                        
+                        <th>Precio Unitario</th>                     
+                        <th>Producto Vendido</th>
+                        <th>Cantidad</th>
+                        <th>Suma Total</th>                                                                      
                     </tr>
                 </thead>
                 <tbody>
                     @foreach ($ventas as $venta)
                         <tr>
                             <td>{{ $venta->id }}</td>
-                            <td>{{ $venta->fecha }}</td>
-                            <td>{{ $venta->precio }}</td>                          
                             <td>{{ $venta->id_vendedor }}</td>
+                            <td>{{ $venta->fecha }}</td>
+                            <td>
+                                @foreach($venta->productos as $producto)
+                                    {{ $producto->precio }}
+                                @endforeach
+                            </td>                            
+                            <td>
+                                @foreach($venta->productos as $producto)
+                                    {{ $producto->nombre }}
+                                @endforeach
+                            </td>
+                            <td>
+                                @foreach($venta->productos as $producto)
+                                    {{ $producto->pivot->cantidad }}
+                                @endforeach
+                            </td>
+                            <td>{{ $venta->productos->sum(function($producto) { return $producto->precio * $producto->pivot->cantidad; }) }}</td>                         
                             <td class="flex space-x-2">
                                 <a href="{{ route('ventas.edit', $venta->id) }}" class="btn btn-warning btn-xs">Editar</a>
                                 <form action="{{ route('ventas.destroy', $venta->id) }}" method="POST">

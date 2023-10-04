@@ -57,14 +57,14 @@ Route::get('/administradores/{id}/edit', [AdministradorController::class, 'editA
 Route::get('/productos/{producto}/edit', [AdministradorController::class, 'editProducto'])->name('productos.edit');
 Route::get('/proveedor/{id}/edit', [AdministradorController::class, 'editProveedor'])->name('administrador.editProveedor');
 Route::get('/vendedor/{id}/edit', [AdministradorController::class, 'editVendedor'])->name('administrador.editVendedor');
-
+Route::get('/venta/{id}/edit', [VentaController::class, 'edit'])->name('ventas.edit');
 
 //Ruta para actualizar informacion en la base de datos
 Route::put('/administradores/{id}', [AdministradorController::class, 'updateAdministrador'])->name('administradores.update');
 Route::put('/productos/{id}/update', [AdministradorController::class, 'updateProducto'])->name('administrador.updateProducto');
 Route::put('/proveedor/{id}/update', [AdministradorController::class, 'updateProveedor'])->name('administrador.updateProveedor');
 Route::put('/vendedores/{id}/update', [AdministradorController::class, 'updateVendedor'])->name('administrador.updateVendedor');
-
+Route::put('/venta/{id}', [VentaController::class, 'update'])->name('ventas.update');
 
 //Ruta para eliminar informacion en la base de datos
 Route::delete('/administradores/{administrador}', [AdministradorController::class, 'destroyAdministrador'])->name('administrador.destroyAdministrador');

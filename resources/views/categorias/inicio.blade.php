@@ -11,7 +11,7 @@
                 <p class="mb-5">
                     Con CoorPaper, llevar el control de tu inventario nunca ha sido tan fácil. Registra, sigue y administra tus productos de manera efectiva.
                 </p>
-                <a href="{{route('productos.index')}}" class="btn btn-primary">Ingresar</a>
+                <a href="{{route('login.store')}}" class="btn btn-primary">Ingresar</a>
             </div>
         </div>
     </div>
